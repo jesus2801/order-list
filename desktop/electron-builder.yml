@@ -1,0 +1,12 @@
+appId: practical.learning.desktop
+productName: Practical Learning
+copyright: Copyright © 2018 Jesús García
+directories:
+  output: dist
+  buildResources: resources
+files:
+  - from: .
+    filter:
+      - package.json
+      - app
+publish: null

@@ -1,11 +1,12 @@
 import React from 'react';
 
 import Layout from '@templates/layout';
+import LoginComponent from '@templates/auth/login';
 
 const login = () => {
   return (
     <Layout title="Iniciar sesión">
-      <h1>Hello world</h1>
+      <LoginComponent />
     </Layout>
   );
 };

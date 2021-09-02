@@ -1,7 +1,9 @@
+import Layout from '@templates/layout';
+
 const IndexPage = () => (
-  <div>
+  <Layout title="Inicio">
     <h1>Hello world in Practical Learning</h1>
-  </div>
+  </Layout>
 );
 
 export default IndexPage;

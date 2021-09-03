@@ -29,6 +29,8 @@ import { validatePass, validateUser } from 'functions/validate.functions';
 import { forms } from 'utils/errors.messages';
 import Link from 'next/link';
 
+import v from 'validator';
+
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 const index = () => {
@@ -43,7 +45,7 @@ const index = () => {
       {
         name: 'mail',
         value: '',
-        validation: validateUser,
+        validation: v.isEmail,
         errorMsg: forms.invalidMail,
       },
       {

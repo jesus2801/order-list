@@ -14,11 +14,18 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 
-import { MainDiv, Cartoon, FormDiv } from '../shared.styles';
+import {
+  MainDiv,
+  Cartoon,
+  FormDiv,
+  LinksDiv,
+  ButtonIcon,
+} from '../shared.styles';
 
 import useValidateForm from 'hooks/useValidateForm';
 import { validatePass, validateUser } from 'functions/validate.functions';
 import { forms } from 'utils/errors.messages';
+import Link from 'next/link';
 
 const index = () => {
   const [open, setOpen] = useState(false);
@@ -61,6 +68,8 @@ const index = () => {
     }
 
     handleLoader(true);
+
+    //TODO: continue with the rest
   };
 
   return (
@@ -79,7 +88,7 @@ const index = () => {
           </DialogActions>
         </Dialog>
 
-        <Backdrop open={loader}>
+        <Backdrop className="main-loader" open={loader}>
           <CircularProgress color="primary" />
         </Backdrop>
 
@@ -107,6 +116,35 @@ const index = () => {
             onChange={onChange}
           />
         </FormControl>
+
+        <LinksDiv>
+          <Link href="/signup">
+            <p>Registrate</p>
+          </Link>
+          <Link href="/">
+            <p>¿Olvidates tu contraseña?</p>
+          </Link>
+        </LinksDiv>
+
+        <Button
+          startIcon={<ButtonIcon src="/static/auth/google.png" />}
+          className="submit-button"
+          variant="outlined"
+          fullWidth={true}
+          color="primary"
+        >
+          Continuar con Google
+        </Button>
+
+        <Button
+          startIcon={<ButtonIcon src="/static/auth/facebook.png" />}
+          className="submit-button"
+          variant="outlined"
+          fullWidth={true}
+          color="primary"
+        >
+          Continuar con Facebook
+        </Button>
 
         <Button
           className="submit-button"

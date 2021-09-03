@@ -34,3 +34,27 @@ export const FormDiv = styled.div`
   -moz-box-shadow: 3px 6px 8px 1px rgba(209, 209, 209, 1);
   box-shadow: 3px 6px 8px 1px rgba(209, 209, 209, 1);
 `;
+
+export const LinksDiv = styled.div`
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 10px;
+  margin-top: 10px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  p {
+    margin: 0;
+    color: var(--black);
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+`;
+
+export const ButtonIcon = styled.img`
+  width: 22px;
+`;

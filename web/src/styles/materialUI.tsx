@@ -15,4 +15,7 @@ export const mainTheme = createTheme({
       contrastText: '#ffffff',
     },
   },
+  typography: {
+    fontFamily: 'Nunito',
+  },
 });

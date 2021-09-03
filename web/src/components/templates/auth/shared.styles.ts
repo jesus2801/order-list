@@ -11,7 +11,7 @@ export const MainDiv = styled.div`
 `;
 
 export const Cartoon = styled.object`
-  width: 300px;
+  width: 400px;
 `;
 
 export const FormDiv = styled.div`

@@ -25,7 +25,7 @@ import {
 } from '../shared.styles';
 
 import useValidateForm from 'hooks/useValidateForm';
-import { validatePass, validateUser } from 'functions/validate.functions';
+import { validatePass } from 'functions/validate.functions';
 import { forms } from 'utils/errors.messages';
 import Link from 'next/link';
 
@@ -168,7 +168,7 @@ const index = () => {
           color="secondary"
           onClick={handleSubmit}
         >
-          Ingresar
+          ¡Comencemos!
         </Button>
       </FormDiv>
     </MainDiv>

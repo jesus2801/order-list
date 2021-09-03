@@ -12,6 +12,8 @@ import {
   DialogActions,
   Backdrop,
   CircularProgress,
+  InputAdornment,
+  IconButton,
 } from '@material-ui/core';
 
 import {
@@ -22,12 +24,15 @@ import {
   ButtonIcon,
 } from '../shared.styles';
 
+import { Visibility, VisibilityOff } from '@material-ui/icons';
+
 import useValidateForm from 'hooks/useValidateForm';
 import { validatePass, validateUser } from 'functions/validate.functions';
 import { forms } from 'utils/errors.messages';
 import Link from 'next/link';
 
 const index = () => {
+  const [showPass, setShowPass] = useState(false);
   const [open, setOpen] = useState(false);
   const [loader, setLoader] = useState(false);
   const handleAlert = (state: boolean) => setOpen(state);
@@ -112,8 +117,19 @@ const index = () => {
             id="input-pass"
             value={pass}
             name="pass"
-            type="password"
+            type={showPass ? 'text' : 'password'}
             onChange={onChange}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={() => setShowPass(!showPass)}
+                  onMouseDown={() => setShowPass(!showPass)}
+                >
+                  {showPass ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            }
           />
         </FormControl>
 

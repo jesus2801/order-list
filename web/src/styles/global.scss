@@ -4,6 +4,10 @@ body {
   font-family: 'Nunito', sans-serif;
 }
 
+.MuiBackdrop-root {
+  z-index: 99 !important;
+}
+
 :root {
   --black: #08121f;
 }

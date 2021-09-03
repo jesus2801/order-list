@@ -10,6 +10,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
+  Backdrop,
+  CircularProgress,
 } from '@material-ui/core';
 
 import { MainDiv, Cartoon, FormDiv } from '../shared.styles';
@@ -20,7 +22,9 @@ import { forms } from 'utils/errors.messages';
 
 const index = () => {
   const [open, setOpen] = useState(false);
-  const handleClose = (state: boolean) => setOpen(state);
+  const [loader, setLoader] = useState(false);
+  const handleAlert = (state: boolean) => setOpen(state);
+  const handleLoader = (state: boolean) => setLoader(state);
 
   const { onChange, data, onSubmit, err } = useValidateForm({
     parameters: [
@@ -43,27 +47,41 @@ const index = () => {
 
   useEffect(() => {
     if (err) {
-      handleClose(true);
+      handleAlert(true);
     } else {
-      handleClose(false);
+      handleAlert(false);
     }
   }, [err]);
+
+  const handleSubmit = () => {
+    const value = onSubmit();
+    if (!value) {
+      handleAlert(true);
+      return;
+    }
+
+    handleLoader(true);
+  };
 
   return (
     <MainDiv>
       <Svg path="/static/auth/login" Styles={Cartoon} />
       <FormDiv>
-        <Dialog open={open} onClose={() => handleClose(false)}>
+        <Dialog open={open} onClose={() => handleAlert(false)}>
           <DialogTitle>Error</DialogTitle>
           <DialogContent>
             <DialogContentText>{err}</DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button color="primary" onClick={() => handleClose(false)}>
+            <Button color="primary" onClick={() => handleAlert(false)}>
               OK
             </Button>
           </DialogActions>
         </Dialog>
+
+        <Backdrop open={loader}>
+          <CircularProgress color="primary" />
+        </Backdrop>
 
         <h1>Iniciar sesión</h1>
         <FormControl fullWidth={true}>
@@ -95,10 +113,7 @@ const index = () => {
           variant="contained"
           fullWidth={true}
           color="secondary"
-          onClick={() => {
-            const value = onSubmit();
-            if (!value) handleClose(true);
-          }}
+          onClick={handleSubmit}
         >
           Ingresar
         </Button>

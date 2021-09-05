@@ -1,0 +1,79 @@
+{
+  "name": "practical-learning-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "src",
+      "schema"
+    ],
+    "exec": "node -r tsconfig-paths/register -r ts-node/register ./src/index.ts",
+    "ext": "ts, graphql"
+  },
+  "scripts": {
+    "prestart": "npm install --production",
+    "start": "node dist/index.js",
+    "start:dev": "node dist/index.js",
+    "dev": "nodemon",
+    "build": "tsc",
+    "postbuild": "tscpaths -p tsconfig.json -s ./src -o ./dist",
+    "indent": "prettier --write .",
+    "docs": "jsdoc -c jsdoc.json",
+    "autocannon": "ts-node ./__test__/auto/index.ts",
+    "test": "jest --transformIgnorePatterns --runInBand -- index.spec.ts",
+    "test:coverage": "jest --coverage",
+    "test:open": "cd coverage/lcov-report && \"index.html\""
+  },
+  "keywords": [],
+  "author": "Jesús García",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "fastify": "^3.20.2",
+    "fastify-cors": "^6.0.2",
+    "fastify-helmet": "^5.3.2",
+    "graphql": "^15.5.2",
+    "graphql-middleware": "^6.1.6",
+    "graphql-shield": "^7.5.0",
+    "graphql-tag": "^2.12.5",
+    "graphql-tools": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mercurius": "^8.1.3",
+    "mongoose": "^6.0.4",
+    "nodemailer": "^6.6.3",
+    "path": "^0.12.7",
+    "rollbar": "^2.24.0",
+    "validator": "^13.6.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/autocannon": "^4.1.1",
+    "@types/bcrypt": "^5.0.0",
+    "@types/jest": "^27.0.1",
+    "@types/jsonwebtoken": "^8.5.5",
+    "@types/node": "^16.7.10",
+    "@types/nodemailer": "^6.4.4",
+    "@types/supertest": "^2.0.11",
+    "@types/validator": "^13.6.3",
+    "autocannon": "^7.4.0",
+    "better-docs": "^2.3.2",
+    "jest": "^27.1.0",
+    "jsdoc": "^3.6.7",
+    "nodemon": "^2.0.12",
+    "prettier": "^2.3.2",
+    "supertest": "^6.1.6",
+    "ts-jest": "^27.0.5",
+    "ts-node": "^10.2.1",
+    "tsconfig-paths": "^3.11.0",
+    "tscpaths": "^0.0.9",
+    "typescript": "^3.9.10"
+  }
+}

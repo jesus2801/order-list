@@ -1,5 +1,5 @@
+import { Visibility, VisibilityOff } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react';
-import Svg from '@atoms/svg';
 import {
   Input,
   FormControl,
@@ -15,6 +15,13 @@ import {
   InputAdornment,
   IconButton,
 } from '@material-ui/core';
+import Link from 'next/link';
+
+import { validatePass, validateUser } from 'functions/validate.functions';
+
+import useValidateForm from 'hooks/useValidateForm';
+
+import { forms } from 'utils/errors.messages';
 
 import {
   MainDiv,
@@ -24,20 +31,21 @@ import {
   ButtonIcon,
 } from '../shared.styles';
 
-import { Visibility, VisibilityOff } from '@material-ui/icons';
-
-import useValidateForm from 'hooks/useValidateForm';
-import { validatePass, validateUser } from 'functions/validate.functions';
-import { forms } from 'utils/errors.messages';
-import Link from 'next/link';
+import Svg from '@atoms/svg';
 
 const index = () => {
+  //satate for show or hide password
   const [showPass, setShowPass] = useState(false);
+  //state for open and close the main alert
   const [open, setOpen] = useState(false);
+  //state for open and close the loader
   const [loader, setLoader] = useState(false);
+
+  //functions to change the state of the loader and the alert
   const handleAlert = (state: boolean) => setOpen(state);
   const handleLoader = (state: boolean) => setLoader(state);
 
+  //use the validate hook
   const { onChange, data, onSubmit, err } = useValidateForm({
     parameters: [
       {
@@ -55,8 +63,10 @@ const index = () => {
     ],
   });
 
+  //destructuring the data of the validate hook
   const { user, pass } = data;
 
+  //for handle the alert when there is an error
   useEffect(() => {
     if (err) {
       handleAlert(true);
@@ -65,13 +75,16 @@ const index = () => {
     }
   }, [err]);
 
+  //for handle the submit button
   const handleSubmit = () => {
     const value = onSubmit();
+    //validate if there is any error
     if (!value) {
       handleAlert(true);
       return;
     }
 
+    //show loader
     handleLoader(true);
 
     //TODO: continue with the rest

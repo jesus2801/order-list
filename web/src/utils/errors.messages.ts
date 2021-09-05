@@ -1,3 +1,4 @@
+//error messages on forms
 export const forms = {
   invalidUser:
     'Por favor ingresa un usuario válido. Mínimo 4 carácteres. Sin caráteres especiales',

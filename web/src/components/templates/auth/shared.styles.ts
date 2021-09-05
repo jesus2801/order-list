@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 
+//main div that contains the whole content
 export const MainDiv = styled.div`
   width: 100%;
   height: 100vh;
@@ -10,10 +11,12 @@ export const MainDiv = styled.div`
   box-sizing: border-box;
 `;
 
+//image that accompanies the form
 export const Cartoon = styled.object`
   width: 400px;
 `;
 
+//div of the login / signup form
 export const FormDiv = styled.div`
   h1 {
     color: var(--black);
@@ -35,6 +38,7 @@ export const FormDiv = styled.div`
   box-shadow: 3px 6px 8px 1px rgba(209, 209, 209, 1);
 `;
 
+//links to signup / login / forgot password
 export const LinksDiv = styled.div`
   box-sizing: border-box;
   width: 100%;
@@ -55,6 +59,7 @@ export const LinksDiv = styled.div`
   }
 `;
 
+//Facebook / Google icon styles
 export const ButtonIcon = styled.img`
   width: 22px;
 `;

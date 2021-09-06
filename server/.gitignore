@@ -3,3 +3,5 @@ dist
 docs
 errors.log
 firebase.key.json
+.env.development
+.env.production

@@ -1,4 +1,5 @@
 import { LoginInput } from '@interfaces/schema/auth.interfaces';
+import userServices from '@services/user.services';
 
 export default {
   Query: {
@@ -7,8 +8,8 @@ export default {
     },
   },
   Mutation: {
-    async login({}, { input: { pass, user } }: LoginInput) {
-      return 'Hello world' + user + pass;
+    async login({}, { input }: LoginInput) {
+      return await userServices.login(input);
     },
   },
 };

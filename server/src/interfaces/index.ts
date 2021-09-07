@@ -10,7 +10,11 @@ export interface MasterConfig {
   cluster: any;
 }
 
-export interface UserPayload {}
+export interface UserPayload {
+  id: string;
+  mail: string;
+  user: string;
+}
 
 export interface GrahpqlCtx {
   user: UserPayload | null;

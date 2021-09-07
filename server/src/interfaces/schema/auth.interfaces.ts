@@ -1,6 +1,8 @@
+export interface LoginData {
+  user: string;
+  pass: string;
+}
+
 export interface LoginInput {
-  input: {
-    user: string;
-    pass: string;
-  };
+  input: LoginData;
 }

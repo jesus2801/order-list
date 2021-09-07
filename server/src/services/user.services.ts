@@ -1,5 +1,6 @@
 import { generate } from 'short-uuid';
 import v from 'validator';
+import { Profile } from 'passport-facebook';
 
 import { LoginData, SignupData } from '@interfaces/schema/auth.interfaces';
 
@@ -10,7 +11,7 @@ import errorMessages from '@utils/error.messages';
 
 import authServices from './auth.services';
 
-import UserModel from '@models/User.model';
+import UserModel, { AppProviders } from '@models/User.model';
 
 // user services class
 class UserServices {
@@ -21,6 +22,7 @@ class UserServices {
     //search the user
     const user = await UserModel.findOne({
       $or: [{ userName: data.user }, { mail: data.user }],
+      provider: 'local',
     });
     //if the user doesn't exist return an error
     if (!user) throw new ServiceError(errorMessages.invalidLogin);
@@ -47,6 +49,7 @@ class UserServices {
       const user = new UserModel({
         mail: data.mail,
         userName: `user_${generate()}`,
+        provider: 'local',
       });
       //add hash
       user.pass = await hashPass(data.pass);
@@ -64,6 +67,10 @@ class UserServices {
       //handle the duplicate event
       if (isDuplicateErr(e)) throw new ServiceError(errorMessages.mailAlreadyUsed);
     }
+  }
+
+  async continueWith(provider: AppProviders, profile: Profile) {
+    console.log(profile);
   }
 }
 

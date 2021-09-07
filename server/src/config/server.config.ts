@@ -1,5 +1,6 @@
-import { applyMiddleware } from 'graphql-middleware';
+import fastifySecureSession from 'fastify-secure-session';
 import { makeExecutableSchema } from '@graphql-tools/schema';
+import { applyMiddleware } from 'graphql-middleware';
 import fastify, { FastifyInstance } from 'fastify';
 import helmet from 'fastify-helmet';
 import mercurius from 'mercurius';
@@ -19,6 +20,7 @@ import schema from '@graphql/schema';
 
 import { GrahpqlCtx } from '@interfaces';
 
+import passport from './passport.config';
 import { initConn } from './db.config';
 
 /**
@@ -47,10 +49,23 @@ export class App {
    * App middlewares
    */
   private middlewares() {
+    this.app.register(fastifySecureSession, { key: process.env.SESSION_KEY! });
+    this.app.register(passport.initialize());
+    this.app.register(passport.secureSession());
+
     this.app.register(cors, {
       methods: ['POST', 'PUT', 'DELETE', 'OPTIONS'],
       optionsSuccessStatus: 204,
     });
+
+    this.app.get('/auth/facebook', passport.authenticate('facebook'));
+    this.app.get(
+      '/auth/facebook/callback',
+      passport.authenticate('facebook', {
+        failureRedirect: `${process.env.CLIENT_URL!}/login`,
+        successRedirect: process.env.CLIENT_URL,
+      }),
+    );
 
     this.app.register(mercurius, {
       schema: applyMiddleware(

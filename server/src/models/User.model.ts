@@ -1,10 +1,14 @@
 import { Schema, model, Document, Types } from 'mongoose';
 
+export type AppProviders = 'google' | 'facebook' | 'local';
+
 export interface IUser extends Document {
   mail: string;
   userName: string;
   pass: string;
   union: number;
+  courses: string[];
+  provider: AppProviders;
 }
 
 const userSchema = new Schema({
@@ -23,6 +27,13 @@ const userSchema = new Schema({
   pass: {
     type: String,
     required: true,
+    default: '',
+  },
+  provider: {
+    type: String,
+    enum: ['google', 'facebook', 'local'],
+    required: true,
+    default: 'local',
   },
   courses: {
     type: [Types.ObjectId],

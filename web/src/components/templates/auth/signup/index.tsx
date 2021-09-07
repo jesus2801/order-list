@@ -18,7 +18,10 @@ import {
 } from '@material-ui/core';
 import v from 'validator';
 
-import { validatePass } from 'functions/validate.functions';
+import {
+  handlerRequestErr,
+  validatePass,
+} from 'functions/validate.functions';
 
 import useValidateForm from 'hooks/useValidateForm';
 
@@ -33,6 +36,9 @@ import {
   LinksDiv,
   ButtonIcon,
 } from '../shared.styles';
+import { useMutation } from '@apollo/client';
+import { SIGNUP_MUTATION } from 'graphql/mutations';
+import { useRouter } from 'next/dist/client/router';
 
 const index = () => {
   //satate for show or hide password
@@ -46,8 +52,11 @@ const index = () => {
   const handleAlert = (state: boolean) => setOpen(state);
   const handleLoader = (state: boolean) => setLoader(state);
 
+  //router hook
+  const router = useRouter();
+
   //use the validate hook
-  const { onChange, data, onSubmit, err } = useValidateForm({
+  const { onChange, data, onSubmit, err, setErr } = useValidateForm({
     parameters: [
       {
         name: 'mail',
@@ -67,6 +76,8 @@ const index = () => {
   //destructuring the data of the validate hook
   const { mail, pass } = data;
 
+  const [signupMutation] = useMutation(SIGNUP_MUTATION);
+
   //for handle the alert when there is an error
   useEffect(() => {
     if (err) {
@@ -77,7 +88,7 @@ const index = () => {
   }, [err]);
 
   //for handle the submit button
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const value = onSubmit();
     //validate if there is any error
     if (!value) {
@@ -85,10 +96,29 @@ const index = () => {
       return;
     }
 
-    //show loader
-    handleLoader(true);
+    try {
+      //show loader
+      handleLoader(true);
 
-    //TODO: continue with the rest
+      //send petition
+      const response = await signupMutation({
+        variables: {
+          input: {
+            mail,
+            pass,
+          },
+        },
+      });
+
+      //hide loader
+      handleLoader(false);
+
+      //redirect user
+      router.push(`/home?token=${response.data.signup}`);
+    } catch (e) {
+      handleLoader(false);
+      setErr(handlerRequestErr(e));
+    }
   };
 
   return (
@@ -153,25 +183,29 @@ const index = () => {
           </Link>
         </LinksDiv>
 
-        <Button
-          startIcon={<ButtonIcon src="/static/auth/google.png" />}
-          className="submit-button"
-          variant="outlined"
-          fullWidth={true}
-          color="primary"
-        >
-          Continuar con Google
-        </Button>
+        <Link href={`${process.env.SERVER_URI!}/auth/google`}>
+          <Button
+            startIcon={<ButtonIcon src="/static/auth/google.png" />}
+            className="submit-button"
+            variant="outlined"
+            fullWidth={true}
+            color="primary"
+          >
+            Continuar con Google
+          </Button>
+        </Link>
 
-        <Button
-          startIcon={<ButtonIcon src="/static/auth/facebook.png" />}
-          className="submit-button"
-          variant="outlined"
-          fullWidth={true}
-          color="primary"
-        >
-          Continuar con Facebook
-        </Button>
+        <Link href={`${process.env.SERVER_URI!}/auth/facebook`}>
+          <Button
+            startIcon={<ButtonIcon src="/static/auth/facebook.png" />}
+            className="submit-button"
+            variant="outlined"
+            fullWidth={true}
+            color="primary"
+          >
+            Continuar con Facebook
+          </Button>
+        </Link>
 
         <Button
           className="submit-button"

@@ -47,6 +47,7 @@ const index = () => {
   //state for open and close the loader
   const [loader, setLoader] = useState(false);
 
+  //router hook
   const router = useRouter();
 
   //functions to change the state of the loader and the alert

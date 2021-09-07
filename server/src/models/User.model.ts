@@ -32,7 +32,7 @@ const userSchema = new Schema({
   union: {
     type: Number,
     required: true,
-    default: Date.now(),
+    default: () => Date.now(),
   },
 });
 

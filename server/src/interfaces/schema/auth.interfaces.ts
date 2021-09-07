@@ -6,3 +6,12 @@ export interface LoginData {
 export interface LoginInput {
   input: LoginData;
 }
+
+export interface SignupData {
+  mail: string;
+  pass: string;
+}
+
+export interface SignupInput {
+  input: SignupData;
+}

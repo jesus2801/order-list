@@ -52,6 +52,7 @@
     "nodemailer": "^6.6.3",
     "path": "^0.12.7",
     "rollbar": "^2.24.0",
+    "short-uuid": "^4.2.0",
     "validator": "^13.6.0",
     "winston": "^3.3.3"
   },

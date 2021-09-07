@@ -27,7 +27,10 @@ const useValidateForm = ({ parameters }: UseValidateForm) => {
     //validate all fields
     for (let i = 0, n = parameters.length; i < n; i++) {
       //if some field is incorrect, set the error and return false
-      if (!parameters[i].validation(data[parameters[i].name])) {
+      if (
+        parameters[i].validation &&
+        !parameters[i].validation(data[parameters[i].name])
+      ) {
         setErr(parameters[i].errorMsg);
         return false;
       }
@@ -41,6 +44,7 @@ const useValidateForm = ({ parameters }: UseValidateForm) => {
   return {
     data,
     err,
+    setErr,
     onChange,
     onSubmit,
   };

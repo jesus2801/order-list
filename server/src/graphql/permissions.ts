@@ -11,8 +11,8 @@ const isAuthenticate = rule({ cache: 'contextual' })(
 // rules for whole querys and mutations
 export default shield(
   {
-    Query: {
-      hello: allow,
+    Mutation: {
+      login: allow,
     },
   },
   {

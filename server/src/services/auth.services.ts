@@ -5,12 +5,12 @@ import { UserPayload } from '@interfaces';
 import config from '@config';
 
 /**
- * Clase de servicios de autenticación
+ * Auth class
  */
 class AuthServices {
   /**
-   * Servicio para autenticar el token del usuario
-   * @param {string} token token del usuario
+   * Service for authenticate the user token
+   * @param {string} token user token
    * @returns {null|UserPayload}
    */
   public authToken(token: string): UserPayload | null {
@@ -22,9 +22,9 @@ class AuthServices {
   }
 
   /**
-   * Servicio para firmar un token
-   * @param {UserPayload} payload información a ser firmada
-   * @returns {string} retorna el token firmado
+   * Service for signing a token
+   * @param {UserPayload} payload information to be signed
+   * @returns {string} returns the signed token
    */
   public signToken(payload: UserPayload): string {
     return jwt.sign(payload, config.server.secret, { expiresIn: '3h' });

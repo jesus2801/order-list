@@ -58,13 +58,35 @@ export class App {
       optionsSuccessStatus: 204,
     });
 
-    this.app.get('/auth/facebook', passport.authenticate('facebook'));
+    this.app.get('/auth/facebook', passport.authenticate('facebook', { session: false }));
     this.app.get(
       '/auth/facebook/callback',
-      passport.authenticate('facebook', {
-        failureRedirect: `${process.env.CLIENT_URL!}/login`,
-        successRedirect: process.env.CLIENT_URL,
-      }),
+      {
+        preValidation: passport.authenticate('facebook', {
+          failureRedirect: `${process.env.CLIENT_URL!}/login`,
+          session: false,
+        }),
+      },
+      (req, res) => {
+        res.redirect(`${process.env.CLIENT_URL!}/home?token=${req.user}`);
+      },
+    );
+
+    this.app.get(
+      '/auth/google',
+      passport.authenticate('google', { scope: ['profile'], session: false }),
+    );
+    this.app.get(
+      '/auth/google/callback',
+      {
+        preValidation: passport.authenticate('google', {
+          failureRedirect: `${process.env.CLIENT_URL!}/login`,
+          session: false,
+        }),
+      },
+      (req, res) => {
+        res.redirect(`${process.env.CLIENT_URL!}/home?token=${req.user}`);
+      },
     );
 
     this.app.register(mercurius, {

@@ -1,6 +1,8 @@
-import userServices from '@services/user.services';
-import passport from 'fastify-passport';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
+import passport from 'fastify-passport';
+
+import userServices from '@services/user.services';
 
 passport.use(
   new FacebookStrategy(
@@ -9,9 +11,23 @@ passport.use(
       clientSecret: process.env.FACEBOOK_APP_SECRET!,
       callbackURL: `${process.env.ACTUAL_HOST}/auth/facebook/callback`,
     },
-    function (accessToken, refreshToken, profile, done) {
-      userServices.continueWith('facebook', profile);
-      done(null, { mail: 'jesusd280147@gmail.com' });
+    async ({}, {}, profile, done) => {
+      const userToken = await userServices.continueWith('facebook', profile);
+      done(null, userToken);
+    },
+  ),
+);
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_APP_ID!,
+      clientSecret: process.env.GOOGLE_APP_SECRET!,
+      callbackURL: `${process.env.ACTUAL_HOST}/auth/google/callback`,
+    },
+    async ({}, {}, profile, done) => {
+      const userToken = await userServices.continueWith('google', profile);
+      done(null, userToken);
     },
   ),
 );

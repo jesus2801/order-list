@@ -1,6 +1,7 @@
+import { Profile as GoogleProfile } from 'passport-google-oauth20';
+import { Profile as FacebookProfile } from 'passport-facebook';
 import { generate } from 'short-uuid';
 import v from 'validator';
-import { Profile } from 'passport-facebook';
 
 import { LoginData, SignupData } from '@interfaces/schema/auth.interfaces';
 
@@ -28,7 +29,7 @@ class UserServices {
     if (!user) throw new ServiceError(errorMessages.invalidLogin);
 
     //validate password
-    const validPass = await comparePass(data.pass, user.pass);
+    const validPass = await comparePass(data.pass, user.pass || '');
     if (!validPass) throw new ServiceError(errorMessages.invalidLogin);
 
     //return a signed token
@@ -69,8 +70,36 @@ class UserServices {
     }
   }
 
-  async continueWith(provider: AppProviders, profile: Profile) {
-    console.log(profile);
+  async continueWith(
+    provider: AppProviders,
+    profile: GoogleProfile | FacebookProfile,
+  ): Promise<string> {
+    //search the user
+    const user = await UserModel.findOne({ mail: profile.id });
+    if (user) {
+      //return a signed token
+      return authServices.signToken({
+        id: user._id,
+        mail: user.mail,
+        user: user.userName,
+      });
+    }
+
+    //if the user doesn't exist, then we create a new user
+    const newUser = new UserModel({
+      mail: profile.id,
+      userName: `user_${generate()}`,
+      provider: provider,
+    });
+
+    //save the new user
+    const insertedUser = await newUser.save();
+    //return a signed token
+    return authServices.signToken({
+      id: insertedUser._id,
+      mail: insertedUser.mail,
+      user: insertedUser.userName,
+    });
   }
 }
 

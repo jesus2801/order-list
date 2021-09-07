@@ -5,7 +5,7 @@ export type AppProviders = 'google' | 'facebook' | 'local';
 export interface IUser extends Document {
   mail: string;
   userName: string;
-  pass: string;
+  pass?: string;
   union: number;
   courses: string[];
   provider: AppProviders;
@@ -26,8 +26,6 @@ const userSchema = new Schema({
   },
   pass: {
     type: String,
-    required: true,
-    default: '',
   },
   provider: {
     type: String,

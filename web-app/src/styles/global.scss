@@ -66,6 +66,10 @@ body {
   }
 }
 
+.MuiBackdrop-root {
+  z-index: 2;
+}
+
 :root {
   --black: #08121f;
   --red: #ff113c;

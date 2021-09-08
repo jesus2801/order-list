@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Helmet from 'react-helmet';
 
 import Nav from '@templates/nav';
+import Points from '@atoms/points';
 
 import { description, keywords } from './data';
 
@@ -76,6 +77,7 @@ const index = ({ title, children }: LayoutProps) => {
       </Helmet>
 
       <Nav />
+      <Points />
 
       <ContentDiv>{children}</ContentDiv>
     </>

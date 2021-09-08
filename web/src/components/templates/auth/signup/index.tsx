@@ -115,7 +115,9 @@ const index = () => {
       handleLoader(false);
 
       //redirect user
-      router.push(`/home?token=${response.data.signup}`);
+      router.push(
+        `${process.env.WEB_APP_URI!}/?token=${response.data.signup}`
+      );
     } catch (e) {
       handleLoader(false);
       setErr(handlerRequestErr(e));

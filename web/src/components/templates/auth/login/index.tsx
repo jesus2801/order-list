@@ -112,7 +112,9 @@ const index = () => {
       handleLoader(false);
 
       //redirect user
-      router.push(`/home?token=${response.data.login}`);
+      router.push(
+        `${process.env.WEB_APP_URI!}/?token=${response.data.login}`
+      );
     } catch (e) {
       handleLoader(false);
       setErr(handlerRequestErr(e));

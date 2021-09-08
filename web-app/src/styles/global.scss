@@ -1,3 +1,6 @@
+$width: 290px;
+$navTransition: 500ms;
+
 body {
   margin: 0;
   padding: 0;
@@ -7,6 +10,60 @@ body {
 
 .main-loader {
   z-index: 99 !important;
+}
+
+.menu-button {
+  position: fixed !important;
+  top: 3px;
+  transform: translateX(3px);
+  z-index: 9 !important;
+
+  transition: transform $navTransition ease !important;
+
+  &.active {
+    transform: translateX($width - 60px);
+  }
+}
+
+.drawer {
+  .MuiDrawer-paperAnchorLeft {
+    width: 57px;
+    z-index: 8 !important;
+    overflow: hidden;
+
+    transition: width $navTransition ease;
+
+    h1 {
+      margin-top: 40px;
+    }
+
+    nav {
+      margin-top: 50px;
+      .avatar {
+        transition: transform $navTransition ease;
+        transform: translateX(-10px);
+      }
+
+      .user-name {
+        span {
+          max-width: 202px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
+
+  &.active {
+    .MuiDrawer-paperAnchorLeft {
+      width: $width;
+
+      nav .avatar {
+        transform: translateX(0px);
+      }
+    }
+  }
 }
 
 :root {

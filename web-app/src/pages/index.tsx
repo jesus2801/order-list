@@ -1,7 +1,10 @@
+import React from 'react';
+import Layout from '@templates/layout';
+
 const IndexPage = () => (
-  <div>
-    <h1>Hello world in Practical Learning app</h1>
-  </div>
+  <Layout title="Home">
+    <h1>paskdfj</h1>
+  </Layout>
 );
 
 export default IndexPage;

@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Helmet from 'react-helmet';
 
+import Nav from '@templates/nav';
+
 import { description, keywords } from './data';
 
 import { LayoutProps } from './interfaces';
+import { ContentDiv } from './styles';
 
 const index = ({ title, children }: LayoutProps) => {
   //page title
@@ -72,7 +75,9 @@ const index = ({ title, children }: LayoutProps) => {
         />
       </Helmet>
 
-      {children}
+      <Nav />
+
+      <ContentDiv>{children}</ContentDiv>
     </>
   );
 };

@@ -1,5 +1,7 @@
-import Helmet from 'react-helmet';
 import React, { useEffect, useState } from 'react';
+import Helmet from 'react-helmet';
+
+import Nav from '@organisms/nav';
 
 import { description, keywords } from './data';
 
@@ -72,6 +74,7 @@ const index = ({ title, children }: LayoutProps) => {
         />
       </Helmet>
 
+      <Nav />
       {children}
     </>
   );

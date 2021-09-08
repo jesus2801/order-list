@@ -32,6 +32,7 @@ export const FormDiv = styled.div`
   max-width: 350px;
   padding: 20px 30px;
   border-radius: 6px;
+  background-color: var(--white);
 
   -webkit-box-shadow: 3px 6px 8px 1px rgba(209, 209, 209, 1);
   -moz-box-shadow: 3px 6px 8px 1px rgba(209, 209, 209, 1);

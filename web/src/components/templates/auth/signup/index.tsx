@@ -39,6 +39,7 @@ import {
 import { useMutation } from '@apollo/client';
 import { SIGNUP_MUTATION } from 'graphql/mutations';
 import { useRouter } from 'next/dist/client/router';
+import { NavBackground } from '@atoms/nav-background';
 
 const index = () => {
   //satate for show or hide password
@@ -122,102 +123,107 @@ const index = () => {
   };
 
   return (
-    <MainDiv>
-      <Svg path="/static/auth/login" Styles={Cartoon} />
-      <FormDiv>
-        <Dialog open={open} onClose={() => handleAlert(false)}>
-          <DialogTitle>Error</DialogTitle>
-          <DialogContent>
-            <DialogContentText>{err}</DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button color="primary" onClick={() => handleAlert(false)}>
-              OK
+    <>
+      <Svg path="/static/nav-background" Styles={NavBackground} />
+      <MainDiv>
+        <Svg path="/static/auth/login" Styles={Cartoon} />
+        <FormDiv>
+          <Dialog open={open} onClose={() => handleAlert(false)}>
+            <DialogTitle>Error</DialogTitle>
+            <DialogContent>
+              <DialogContentText>{err}</DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button color="primary" onClick={() => handleAlert(false)}>
+                OK
+              </Button>
+            </DialogActions>
+          </Dialog>
+
+          <Backdrop className="main-loader" open={loader}>
+            <CircularProgress color="primary" />
+          </Backdrop>
+
+          <h1>Registrarse</h1>
+          <FormControl fullWidth={true}>
+            <InputLabel htmlFor="input-mail">
+              Ingresa tu correo
+            </InputLabel>
+            <Input
+              id="input-mail"
+              value={mail}
+              name="mail"
+              autoFocus={true}
+              onChange={onChange}
+            />
+          </FormControl>
+
+          <FormControl fullWidth={true} margin="normal">
+            <InputLabel htmlFor="input-pass">
+              Ingresa tu contraseña
+            </InputLabel>
+            <Input
+              id="input-pass"
+              type={showPass ? 'text' : 'password'}
+              value={pass}
+              name="pass"
+              onChange={onChange}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowPass(!showPass)}
+                    onMouseDown={() => setShowPass(!showPass)}
+                  >
+                    {showPass ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
+
+          <LinksDiv>
+            <Link href="/login">
+              <p>Iniciar sesión</p>
+            </Link>
+          </LinksDiv>
+
+          <Link href={`${process.env.SERVER_URI!}/auth/google`}>
+            <Button
+              startIcon={<ButtonIcon src="/static/auth/google.png" />}
+              className="submit-button"
+              variant="outlined"
+              fullWidth={true}
+              color="primary"
+            >
+              Continuar con Google
             </Button>
-          </DialogActions>
-        </Dialog>
-
-        <Backdrop className="main-loader" open={loader}>
-          <CircularProgress color="primary" />
-        </Backdrop>
-
-        <h1>Registrarse</h1>
-        <FormControl fullWidth={true}>
-          <InputLabel htmlFor="input-mail">Ingresa tu correo</InputLabel>
-          <Input
-            id="input-mail"
-            value={mail}
-            name="mail"
-            autoFocus={true}
-            onChange={onChange}
-          />
-        </FormControl>
-
-        <FormControl fullWidth={true} margin="normal">
-          <InputLabel htmlFor="input-pass">
-            Ingresa tu contraseña
-          </InputLabel>
-          <Input
-            id="input-pass"
-            type={showPass ? 'text' : 'password'}
-            value={pass}
-            name="pass"
-            onChange={onChange}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={() => setShowPass(!showPass)}
-                  onMouseDown={() => setShowPass(!showPass)}
-                >
-                  {showPass ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        </FormControl>
-
-        <LinksDiv>
-          <Link href="/login">
-            <p>Iniciar sesión</p>
           </Link>
-        </LinksDiv>
 
-        <Link href={`${process.env.SERVER_URI!}/auth/google`}>
+          <Link href={`${process.env.SERVER_URI!}/auth/facebook`}>
+            <Button
+              startIcon={<ButtonIcon src="/static/auth/facebook.png" />}
+              className="submit-button"
+              variant="outlined"
+              fullWidth={true}
+              color="primary"
+            >
+              Continuar con Facebook
+            </Button>
+          </Link>
+
           <Button
-            startIcon={<ButtonIcon src="/static/auth/google.png" />}
             className="submit-button"
-            variant="outlined"
+            variant="contained"
             fullWidth={true}
-            color="primary"
+            color="secondary"
+            onClick={handleSubmit}
           >
-            Continuar con Google
+            ¡Comencemos!
           </Button>
-        </Link>
-
-        <Link href={`${process.env.SERVER_URI!}/auth/facebook`}>
-          <Button
-            startIcon={<ButtonIcon src="/static/auth/facebook.png" />}
-            className="submit-button"
-            variant="outlined"
-            fullWidth={true}
-            color="primary"
-          >
-            Continuar con Facebook
-          </Button>
-        </Link>
-
-        <Button
-          className="submit-button"
-          variant="contained"
-          fullWidth={true}
-          color="secondary"
-          onClick={handleSubmit}
-        >
-          ¡Comencemos!
-        </Button>
-      </FormDiv>
-    </MainDiv>
+        </FormDiv>
+      </MainDiv>
+    </>
   );
 };
 

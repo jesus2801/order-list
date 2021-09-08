@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Nunito', sans-serif;
+  background-color: #fdfeff;
 }
 
 .main-loader {
@@ -10,4 +11,9 @@ body {
 
 :root {
   --black: #08121f;
+  --red: #ff113c;
+  --blue: #1b7cff;
+  --red-light: #ff1e55;
+  --red-dark: #fb1022;
+  --white: #fdfeff;
 }

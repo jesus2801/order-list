@@ -38,6 +38,7 @@ import Svg from '@atoms/svg';
 import { useMutation } from '@apollo/client';
 import { LOGIN_MUTATION } from 'graphql/mutations';
 import { useRouter } from 'next/dist/client/router';
+import { NavBackground } from '@atoms/nav-background';
 
 const index = () => {
   //satate for show or hide password
@@ -119,107 +120,110 @@ const index = () => {
   };
 
   return (
-    <MainDiv>
-      <Svg path="/static/auth/login" Styles={Cartoon} />
-      <FormDiv>
-        <Dialog open={open} onClose={() => handleAlert(false)}>
-          <DialogTitle>Error</DialogTitle>
-          <DialogContent>
-            <DialogContentText>{err}</DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button color="primary" onClick={() => handleAlert(false)}>
-              OK
+    <>
+      <Svg path="/static/nav-background" Styles={NavBackground} />
+      <MainDiv>
+        <Svg path="/static/auth/login" Styles={Cartoon} />
+        <FormDiv>
+          <Dialog open={open} onClose={() => handleAlert(false)}>
+            <DialogTitle>Error</DialogTitle>
+            <DialogContent>
+              <DialogContentText>{err}</DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button color="primary" onClick={() => handleAlert(false)}>
+                OK
+              </Button>
+            </DialogActions>
+          </Dialog>
+
+          <Backdrop className="main-loader" open={loader}>
+            <CircularProgress color="primary" />
+          </Backdrop>
+
+          <h1>Iniciar sesión</h1>
+          <FormControl fullWidth={true}>
+            <InputLabel htmlFor="input-user">
+              Ingresa tu correo o usuario
+            </InputLabel>
+            <Input
+              id="input-user"
+              value={user}
+              name="user"
+              autoFocus={true}
+              onChange={onChange}
+            />
+          </FormControl>
+
+          <FormControl fullWidth={true} margin="normal">
+            <InputLabel htmlFor="input-pass">
+              Ingresa tu contraseña
+            </InputLabel>
+            <Input
+              id="input-pass"
+              value={pass}
+              name="pass"
+              type={showPass ? 'text' : 'password'}
+              onChange={onChange}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowPass(!showPass)}
+                    onMouseDown={() => setShowPass(!showPass)}
+                  >
+                    {showPass ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
+
+          <LinksDiv>
+            <Link href="/signup">
+              <p>Registrate</p>
+            </Link>
+            <Link href="/">
+              <p>¿Olvidates tu contraseña?</p>
+            </Link>
+          </LinksDiv>
+
+          <Link href={`${process.env.SERVER_URI!}/auth/google`}>
+            <Button
+              startIcon={<ButtonIcon src="/static/auth/google.png" />}
+              className="submit-button"
+              variant="outlined"
+              fullWidth={true}
+              color="primary"
+            >
+              Continuar con Google
             </Button>
-          </DialogActions>
-        </Dialog>
-
-        <Backdrop className="main-loader" open={loader}>
-          <CircularProgress color="primary" />
-        </Backdrop>
-
-        <h1>Iniciar sesión</h1>
-        <FormControl fullWidth={true}>
-          <InputLabel htmlFor="input-user">
-            Ingresa tu correo o usuario
-          </InputLabel>
-          <Input
-            id="input-user"
-            value={user}
-            name="user"
-            autoFocus={true}
-            onChange={onChange}
-          />
-        </FormControl>
-
-        <FormControl fullWidth={true} margin="normal">
-          <InputLabel htmlFor="input-pass">
-            Ingresa tu contraseña
-          </InputLabel>
-          <Input
-            id="input-pass"
-            value={pass}
-            name="pass"
-            type={showPass ? 'text' : 'password'}
-            onChange={onChange}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={() => setShowPass(!showPass)}
-                  onMouseDown={() => setShowPass(!showPass)}
-                >
-                  {showPass ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        </FormControl>
-
-        <LinksDiv>
-          <Link href="/signup">
-            <p>Registrate</p>
           </Link>
-          <Link href="/">
-            <p>¿Olvidates tu contraseña?</p>
+
+          <Link href={`${process.env.SERVER_URI!}/auth/facebook`}>
+            <Button
+              startIcon={<ButtonIcon src="/static/auth/facebook.png" />}
+              className="submit-button"
+              variant="outlined"
+              fullWidth={true}
+              color="primary"
+            >
+              Continuar con Facebook
+            </Button>
           </Link>
-        </LinksDiv>
 
-        <Link href={`${process.env.SERVER_URI!}/auth/google`}>
           <Button
-            startIcon={<ButtonIcon src="/static/auth/google.png" />}
             className="submit-button"
-            variant="outlined"
+            variant="contained"
             fullWidth={true}
-            color="primary"
+            color="secondary"
+            onClick={handleSubmit}
           >
-            Continuar con Google
+            Ingresar
           </Button>
-        </Link>
-
-        <Link href={`${process.env.SERVER_URI!}/auth/facebook`}>
-          <Button
-            startIcon={<ButtonIcon src="/static/auth/facebook.png" />}
-            className="submit-button"
-            variant="outlined"
-            fullWidth={true}
-            color="primary"
-          >
-            Continuar con Facebook
-          </Button>
-        </Link>
-
-        <Button
-          className="submit-button"
-          variant="contained"
-          fullWidth={true}
-          color="secondary"
-          onClick={handleSubmit}
-        >
-          Ingresar
-        </Button>
-      </FormDiv>
-    </MainDiv>
+        </FormDiv>
+      </MainDiv>
+    </>
   );
 };
 

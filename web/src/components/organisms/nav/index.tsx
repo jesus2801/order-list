@@ -1,22 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 import { NavDiv } from './styles';
 
 const index = () => {
+  //state for the actual URL
+  const [actualUrl, setActualUrl] = useState('');
+
+  //update the actual URL when the component rendered
+  useEffect(() => {
+    setActualUrl(window.location.pathname);
+  }, []);
+
+  console.log(actualUrl);
+
   return (
     <NavDiv>
       <Link href="/">
-        <p className="selected">Inicio</p>
+        <p className={actualUrl === '/' ? 'selected' : ''}>Inicio</p>
       </Link>
       <Link href="/login">
-        <p>Iniciar sesión</p>
+        <p className={actualUrl === '/login/' ? 'selected' : ''}>
+          Iniciar sesión
+        </p>
       </Link>
       <Link href="/signup">
-        <p>Registrate</p>
+        <p className={actualUrl === '/signup/' ? 'selected' : ''}>
+          Registrate
+        </p>
       </Link>
-      <Link href="/">
-        <p>Contact</p>
+      <Link href="/contact">
+        <p className={actualUrl === '/contact/' ? 'selected' : ''}>
+          Cursos
+        </p>
       </Link>
     </NavDiv>
   );

@@ -25,11 +25,11 @@ const index = ({ title, children }: LayoutProps) => {
         <title>{title}</title>
         <meta name="title" content={title} />
 
-        {/* <link
+        <link
           rel="shortcut icon"
           href="/favicon.ico"
           type="image/x-icon"
-        /> */}
+        />
 
         <meta http-equiv="Content-Language" content="es" />
         <meta
@@ -77,7 +77,7 @@ const index = ({ title, children }: LayoutProps) => {
       <Nav />
       {children}
     </>
-  );
-};
+  )
+}
 
 export default index;

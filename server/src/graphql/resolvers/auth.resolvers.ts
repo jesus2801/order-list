@@ -1,12 +1,15 @@
 import { LoginInput, SignupInput } from '@interfaces/schema/auth.interfaces';
+import { GraphqlCtx } from '@interfaces/index';
+
 import userServices from '@services/user.services';
 
 export default {
   Query: {
-    async hello() {
-      return 'lkadjf';
+    async viewer({}, {}, { user }: GraphqlCtx) {
+      return user;
     },
   },
+
   Mutation: {
     async login({}, { input }: LoginInput) {
       return await userServices.login(input);

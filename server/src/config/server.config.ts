@@ -18,7 +18,7 @@ import permissions from '@graphql/permissions';
 import resolvers from '@graphql/resolvers';
 import schema from '@graphql/schema';
 
-import { GrahpqlCtx } from '@interfaces';
+import { RequestCtx } from '@interfaces';
 
 import passport from './passport.config';
 import { initConn } from './db.config';
@@ -98,7 +98,7 @@ export class App {
         permissions,
       ),
       graphiql: process.env.NODE_ENV !== 'production',
-      context: (req): GrahpqlCtx => ({
+      context: (req): RequestCtx => ({
         user: authServices.authToken(req.headers['x-auth-token'] as string),
       }),
     });

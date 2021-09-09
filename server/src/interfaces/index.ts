@@ -1,3 +1,5 @@
+import { MercuriusContext } from 'mercurius';
+
 /**
  * Interface for the cluster configuration
  * @category Interfaces
@@ -14,8 +16,13 @@ export interface UserPayload {
   id: string;
   mail: string;
   user: string;
+  points: number;
 }
 
-export interface GrahpqlCtx {
+export interface RequestCtx {
+  user: UserPayload | null;
+}
+
+export interface GraphqlCtx extends MercuriusContext {
   user: UserPayload | null;
 }

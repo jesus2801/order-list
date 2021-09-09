@@ -37,6 +37,7 @@ class UserServices {
       id: user._id,
       mail: user.mail,
       user: user.userName,
+      points: user.points,
     });
   }
 
@@ -63,6 +64,7 @@ class UserServices {
         id: insertedUser._id,
         mail: insertedUser.mail,
         user: insertedUser.userName,
+        points: insertedUser.points,
       });
     } catch (e) {
       //handle the duplicate event
@@ -75,19 +77,21 @@ class UserServices {
     profile: GoogleProfile | FacebookProfile,
   ): Promise<string> {
     //search the user
-    const user = await UserModel.findOne({ mail: profile.id });
+    const user = await UserModel.findOne({ providerId: profile.id, provider });
     if (user) {
       //return a signed token
       return authServices.signToken({
         id: user._id,
         mail: user.mail,
         user: user.userName,
+        points: user.points,
       });
     }
 
     //if the user doesn't exist, then we create a new user
     const newUser = new UserModel({
-      mail: profile.id,
+      mail: profile.emails ? profile.emails[0].value : undefined,
+      providerId: profile.id,
       userName: `user_${generate()}`,
       provider: provider,
     });
@@ -99,6 +103,7 @@ class UserServices {
       id: insertedUser._id,
       mail: insertedUser.mail,
       user: insertedUser.userName,
+      points: insertedUser.points,
     });
   }
 }

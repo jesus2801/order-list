@@ -6,9 +6,11 @@ export interface IUser extends Document {
   mail: string;
   userName: string;
   pass?: string;
-  union: number;
-  courses: string[];
   provider: AppProviders;
+  providerId?: string;
+  courses: string[];
+  points: number;
+  union: number;
 }
 
 const userSchema = new Schema({
@@ -33,10 +35,18 @@ const userSchema = new Schema({
     required: true,
     default: 'local',
   },
+  providerId: {
+    type: String,
+  },
   courses: {
     type: [Types.ObjectId],
     required: [true, 'code:required'],
     default: [],
+  },
+  points: {
+    type: Number,
+    required: true,
+    default: 0,
   },
   union: {
     type: Number,

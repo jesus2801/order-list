@@ -1,9 +1,11 @@
 import React from 'react';
+
 import Layout from '@templates/layout';
+import Home from '@templates/home';
 
 const IndexPage = () => (
   <Layout title="Home">
-    <h1>paskdfj</h1>
+    <Home />
   </Layout>
 );
 

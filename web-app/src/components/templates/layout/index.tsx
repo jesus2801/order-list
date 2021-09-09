@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Helmet from 'react-helmet';
 
 import Nav from '@templates/nav';
-import Points from '@atoms/points';
+import TopButtons from '@molecules/top-buttons';
 
 import { description, keywords } from './data';
 
@@ -77,7 +77,7 @@ const index = ({ title, children }: LayoutProps) => {
       </Helmet>
 
       <Nav />
-      <Points />
+      <TopButtons />
 
       <ContentDiv>{children}</ContentDiv>
     </>

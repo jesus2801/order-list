@@ -12,28 +12,23 @@ const index = () => {
     setActualUrl(window.location.pathname);
   }, []);
 
-  console.log(actualUrl);
-
   return (
     <NavDiv>
       <Link href="/">
-        <p className={actualUrl === '/' ? 'selected' : ''}>Inicio</p>
+        <p className={actualUrl === '/' ? 'selected' : ''}>Home</p>
       </Link>
       <Link href="/login">
-        <p className={actualUrl === '/login/' ? 'selected' : ''}>
-          Iniciar sesión
-        </p>
+        <p className={actualUrl === '/login/' ? 'selected' : ''}>Login</p>
       </Link>
       <Link href="/signup">
         <p className={actualUrl === '/signup/' ? 'selected' : ''}>
-          Registrate
+          Signup
         </p>
       </Link>
-      <Link href="/contact">
-        <p className={actualUrl === '/contact/' ? 'selected' : ''}>
-          Cursos
-        </p>
-      </Link>
+
+      <a href="https://www.google.com/" target="_blank">
+        Contact
+      </a>
     </NavDiv>
   );
 };

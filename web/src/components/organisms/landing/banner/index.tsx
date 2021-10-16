@@ -8,18 +8,17 @@ const index = () => {
     <BannerDiv>
       <TitleDiv>
         <h1>
-          Inicia tu <br />
-          <span>Practical Learning</span>
+          Start your <br />
+          <span>Order list</span>
         </h1>
         <p>
-          Una maravillosa plataforma en dónde podrás cursar los programas
-          que más te interesen y aprender hasta convertirte en un
-          profesional en la materia. Con Practical Learning aprenderás
-          instruyendote de videos, juegos, quizes, ¡entre muchas más
-          herramientas fantásticas!
+          Today we all need a list of orders for our business, we present
+          this simple and minimalist application to manage your orders
+          online and in real time! What are you waiting for? Start this
+          fantastic experience in managing your daily orders!
         </p>
         <Link href="/signup">
-          <button>¡Quiero unirme!</button>
+          <button>I want to join!</button>
         </Link>
       </TitleDiv>
       <CartoonDiv>

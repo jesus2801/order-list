@@ -7,20 +7,19 @@ const index = () => {
   return (
     <FairCard>
       <h2>
-        ¡Ya llegó la feria de <br /> programación!
+        Get to know the code of <br /> this application!
       </h2>
       <img
         src="/static/landing/programming.png"
         alt="programming image"
       />
       <p>
-        Como parte de nuestro lanzamiento hemos puesto a tu disposición
-        diferentes cursos relacionados con este increible mundo
-        tecnológico el cuál es el futuro de la socidad. ¿Qué esperas para
-        programar el futuro de la sociedad?
+        This application is a small demonstration of the technologies that
+        I (Jesus Garcia) have learned throughout my studies, I invite you
+        to know the code of this adventure in my Github!
       </p>
       <Button variant="contained" color="primary" fullWidth={true}>
-        ¡Lo quiero!
+        Yes, of course!
       </Button>
     </FairCard>
   );

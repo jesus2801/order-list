@@ -4,7 +4,6 @@ export const FairCard = styled.div`
   box-sizing: border-box;
   position: relative;
   width: 520px;
-  /* height: 400px; */
   border-radius: 9px;
 
   background-color: var(--white);
@@ -28,7 +27,6 @@ export const FairCard = styled.div`
     color: #ffffff;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
-    text-transform: uppercase;
 
     font-size: 32px;
   }

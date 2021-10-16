@@ -12,11 +12,12 @@ export const NavDiv = styled.div`
   align-items: center;
   justify-content: space-around;
 
-  p {
+  p, a {
     color: #fff;
     margin: 0 30px 0 0;
 
     cursor: pointer;
+    text-decoration: none;
 
     &.selected {
       border-bottom: 2px solid #fff;

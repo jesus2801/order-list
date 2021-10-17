@@ -1,4 +1,4 @@
-import { Schema, model, Document, Types } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 
 export type AppProviders = 'google' | 'facebook' | 'local';
 
@@ -8,7 +8,6 @@ export interface IUser extends Document {
   pass?: string;
   provider: AppProviders;
   providerId?: string;
-  courses: string[];
   points: number;
   union: number;
 }
@@ -37,11 +36,6 @@ const userSchema = new Schema({
   },
   providerId: {
     type: String,
-  },
-  courses: {
-    type: [Types.ObjectId],
-    required: [true, 'code:required'],
-    default: [],
   },
   points: {
     type: Number,

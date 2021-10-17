@@ -1,8 +1,10 @@
 import { ThemeProvider } from '@material-ui/core';
 import { ApolloProvider } from '@apollo/client';
 import type { AppProps } from 'next/app';
+import { Provider } from 'react-redux';
 
 import client from 'config/apollo.client';
+import store from 'context/store';
 
 //normalize styles
 import 'normalize.css';
@@ -11,14 +13,16 @@ import { mainTheme } from '@styles/materialUI';
 //global styles
 import '@styles/global.scss';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function OrdersApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={mainTheme}>
       <ApolloProvider client={client}>
-        <Component {...pageProps} />
+        <Provider store={store}>
+          <Component {...pageProps} />
+        </Provider>
       </ApolloProvider>
     </ThemeProvider>
   );
 }
 
-export default MyApp;
+export default OrdersApp;

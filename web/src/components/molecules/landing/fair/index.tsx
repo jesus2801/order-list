@@ -18,9 +18,11 @@ const index = () => {
         I (Jesus Garcia) have learned throughout my studies, I invite you
         to know the code of this adventure in my Github!
       </p>
-      <Button variant="contained" color="primary" fullWidth={true}>
-        Yes, of course!
-      </Button>
+      <a href="https://github.com/jesus2801/order-list" target="_blank">
+        <Button variant="contained" color="primary" fullWidth={true}>
+          Yes, of course!
+        </Button>
+      </a>
     </FairCard>
   );
 };

@@ -21,6 +21,10 @@ export const FairCard = styled.div`
     transform: translate(60px, calc(370px - 100vh));
   }
 
+  a {
+    text-decoration: none;
+  }
+
   h2 {
     margin: 0;
     z-index: 2;
